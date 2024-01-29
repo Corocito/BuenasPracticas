@@ -16,19 +16,20 @@ namespace ToDo
             do
             {
                 SeleccionMenu = ShowMainMenu();
-                if (SeleccionMenu == 1)
+                //El colocar el (Menu) al inicio hace un cambio automatico a la seleccion del menu
+                if ((Menu)SeleccionMenu == Menu.Añadir)
                 {
                     ShowMenuAdd();
                 }
-                else if (SeleccionMenu == 2)
+                else if ((Menu)SeleccionMenu == Menu.Eliminar)
                 {
                     ShowMenuRemove();           //Se cambia el nombre de los metodos de las opciones para hacerlo mas entendible
                 }
-                else if (SeleccionMenu == 3)
+                else if ((Menu)SeleccionMenu == Menu.Enlistar)
                 {
                     ShowMenuTareasPendientes();
                 }
-            } while (SeleccionMenu != 4);
+            } while ((Menu)SeleccionMenu != Menu.Salir);
         }
         /// <summary>
         /// Show the main menu 
@@ -108,5 +109,13 @@ namespace ToDo
                 Console.WriteLine("----------------------------------------");
             }
         }
+    }
+
+    //Se añade un Enum que servira para hacer la seleccion del menú mas entendible
+    public enum Menu{
+        Añadir=1,
+        Eliminar=2,
+        Enlistar=3,
+        Salir=4
     }
 }
