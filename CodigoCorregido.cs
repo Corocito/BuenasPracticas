@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-
 namespace ToDo
 {
     internal class Program
     {
         //Se corrige el nombre de la lista de TL, que no describia nada siendo una mala practica, a ListaTareas, siendo mucho mas descriptiva y acertada
-        public static List<string> ListaTareas { get; set; }
+        //Se inicializa en la misma linea de codigo donde se define la lista y asi se ahorra una linea de codigo
+        public static List<string> ListaTareas { get; set; } = new List<string>();
 
         static void Main(string[] args)
         {
-            ListaTareas = new List<string>();
             //Se cambia el nombre de la variable a SeleccionMenu, para ser mas entendible
             int SeleccionMenu = 0;
             do
@@ -72,7 +69,8 @@ namespace ToDo
                     {
                         string task = ListaTareas[indexToRemove];
                         ListaTareas.RemoveAt(indexToRemove);
-                        Console.WriteLine("Tarea " + task + " eliminada");
+                        //Se agrega la interporalización de cadenas
+                        Console.WriteLine($"Tarea {task} eliminada");
                     }
                 }
             }
@@ -98,13 +96,15 @@ namespace ToDo
 
         public static void ShowMenuTareasPendientes()
         {
-            if (ListaTareas == null || ListaTareas.Count == 0)
+            //De esta forma se puede hacer el resumen  de la condición. Con el signo de interrogación se verifica si es nulo y ahi mismo
+            //se verifica si el valor  es mayor a 0
+            if (ListaTareas?.Count>0)
             {
-                Console.WriteLine("No hay tareas por realizar");
+                ListarTareas();            
             } 
             else
             {
-                ListarTareas();
+                Console.WriteLine("No hay tareas por realizar");
             }
         }
 
@@ -113,7 +113,7 @@ namespace ToDo
             //La variavle IndexTareas sirve para llevar el conteo que normalmente usaria el incremento de los indices del ciclo for
             //Se cambia la sintaxis del clico for por un ForEach
             var IndexTareas=1;
-            ListaTareas.ForEach(p=> Console.WriteLine(IndexTareas++ +". " + p));
+            ListaTareas.ForEach(p=> Console.WriteLine($"{IndexTareas++} . {p}"));
             Console.WriteLine("----------------------------------------");
         }
     }
