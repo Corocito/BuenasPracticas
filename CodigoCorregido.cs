@@ -51,26 +51,34 @@ namespace ToDo
 
         public static void ShowMenuRemove()
         {
+
             try
             {
                 Console.WriteLine("Ingrese el número de la tarea a remover: ");
                 // Show current taks
                 ListarTareas();
-
                 string line = Console.ReadLine();
                 // Remove one position
                 int indexToRemove = Convert.ToInt32(line) - 1;
-                //Se elimina uno de los if y la condicion se ubica dentro del primer if para evitar la repeticion 
-                if (indexToRemove > -1 && ListaTareas.Count > 0)
-                {
-                    string task = ListaTareas[indexToRemove];
-                    ListaTareas.RemoveAt(indexToRemove);
-                    Console.WriteLine("Tarea " + task + " eliminada");
+
+                //Se hace control de la excepcion sin hacer uso del catch y evitar asi el consumo innecesario de recursos
+                //Se identifica una posible excepcion y se hace su respectivo control
+                if(indexToRemove > (ListaTareas.Count - 1) || indexToRemove <= 0){
+                    Console.WriteLine("El numero seleccionado no es valido");
+                }
+                else{
                     
+                    if (indexToRemove > -1 && ListaTareas.Count > 0)
+                    {
+                        string task = ListaTareas[indexToRemove];
+                        ListaTareas.RemoveAt(indexToRemove);
+                        Console.WriteLine("Tarea " + task + " eliminada");
+                    }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine("Se ha presentado un error");
             }
         }
 
