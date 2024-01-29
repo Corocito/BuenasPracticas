@@ -55,23 +55,18 @@ namespace ToDo
             {
                 Console.WriteLine("Ingrese el número de la tarea a remover: ");
                 // Show current taks
-                for (int i = 0; i < ListaTareas.Count; i++)
-                {
-                    Console.WriteLine((i + 1) + ". " + ListaTareas[i]);
-                }
-                Console.WriteLine("----------------------------------------");
+                ListarTareas();
 
                 string line = Console.ReadLine();
                 // Remove one position
                 int indexToRemove = Convert.ToInt32(line) - 1;
-                if (indexToRemove > -1)
+                //Se elimina uno de los if y la condicion se ubica dentro del primer if para evitar la repeticion 
+                if (indexToRemove > -1 && ListaTareas.Count > 0)
                 {
-                    if (ListaTareas.Count > 0)
-                    {
-                        string task = ListaTareas[indexToRemove];
-                        ListaTareas.RemoveAt(indexToRemove);
-                        Console.WriteLine("Tarea " + task + " eliminada");
-                    }
+                    string task = ListaTareas[indexToRemove];
+                    ListaTareas.RemoveAt(indexToRemove);
+                    Console.WriteLine("Tarea " + task + " eliminada");
+                    
                 }
             }
             catch (Exception)
@@ -101,13 +96,17 @@ namespace ToDo
             } 
             else
             {
-                Console.WriteLine("----------------------------------------");
-                for (int i = 0; i < ListaTareas.Count; i++)
-                {
-                    Console.WriteLine((i + 1) + ". " + ListaTareas[i]);
-                }
-                Console.WriteLine("----------------------------------------");
+                ListarTareas();
             }
+        }
+
+        //Se crea un metodo para listar el menu en vez de repetir el codigo varias veces
+        public static void ListarTareas(){
+            //La variavle IndexTareas sirve para llevar el conteo que normalmente usaria el incremento de los indices del ciclo for
+            //Se cambia la sintaxis del clico for por un ForEach
+            var IndexTareas=1;
+            ListaTareas.ForEach(p=> Console.WriteLine(IndexTareas++ +". " + p));
+            Console.WriteLine("----------------------------------------");
         }
     }
 
